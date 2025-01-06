@@ -1,0 +1,67 @@
+@startuml
+entity "Barang" as Barang {
+  * Id_Barang : int
+  --
+  Id_Transaksi : int
+  Jumlah_Produk : string
+}
+
+entity "Transaksi" as Transaksi {
+  * Id_Transaksi : int
+  --
+  Tanggal_Transaksi : date
+  Waktu_Transaksi : time
+  Id_Pelanggan : int
+  Total : int
+  Kode_Pembayaran : string
+}
+
+entity "Pelanggan" as Pelanggan {
+  * Id_Pelanggan : int
+  --
+  Nama_Pelanggan : string
+  Alamat_Pelanggan : string
+}
+
+entity "Barang_Detail" as Barang_Detail {
+  * Id_Barang : int
+  --
+  Nama_Barang : string
+  Harga : int
+  Id_Toko : int
+}
+
+entity "Pembayaran" as Pembayaran {
+  * Kode_Pembayaran : string
+  --
+  Metode_Pembayaran : string
+}
+
+entity "Toko" as Toko {
+  * Id_Toko : int
+  --
+  Nama_Toko : string
+  Alamat_Toko : string
+  No_Telepon_Toko : string
+}
+
+entity "User" as User {
+  * User_ID : int
+  --
+  Username : string
+  Password : string
+  Role : string
+}
+
+Barang }|--|| Transaksi
+Transaksi }|--|| Pelanggan
+Barang_Detail }|--|| Barang
+Transaksi }|--|| Pembayaran
+Barang_Detail }|--|| Toko
+User -left- Transaksi : "Can view\n(select)"
+User -down- Barang : "Admin can\n(insert, update)"
+User -down- Pelanggan : "Can view\n(select)"
+User -down- Barang_Detail : "Can view\n(select)"
+User -down- Pembayaran : "Can view\n(select)"
+User -down- Toko : "Can view\n(select)"
+@enduml
